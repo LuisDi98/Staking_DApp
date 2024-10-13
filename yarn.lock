@@ -2078,9 +2078,9 @@ __metadata:
     "@nomicfoundation/hardhat-network-helpers": ~1.0.11
     "@nomicfoundation/hardhat-verify": ~2.0.10
     "@openzeppelin/contracts": ^5.0.2
-    "@typechain/ethers-v5": ~11.1.2
+    "@typechain/ethers-v5": ^11.1.2
     "@typechain/ethers-v6": ~0.5.1
-    "@typechain/hardhat": ~9.1.0
+    "@typechain/hardhat": ^9.1.0
     "@types/eslint": ~8
     "@types/mocha": ~10.0.8
     "@types/prettier": ~2
@@ -2527,7 +2527,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typechain/ethers-v5@npm:~11.1.2":
+"@typechain/ethers-v5@npm:^11.1.2":
   version: 11.1.2
   resolution: "@typechain/ethers-v5@npm:11.1.2"
   dependencies:
@@ -2557,7 +2557,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typechain/hardhat@npm:~9.1.0":
+"@typechain/hardhat@npm:^9.1.0":
   version: 9.1.0
   resolution: "@typechain/hardhat@npm:9.1.0"
   dependencies:

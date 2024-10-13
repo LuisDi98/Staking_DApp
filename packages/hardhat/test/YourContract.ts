@@ -1,28 +1,36 @@
+import { loadFixture } from "@nomicfoundation/hardhat-network-helpers";
 import { expect } from "chai";
 import { ethers } from "hardhat";
-import { YourContract } from "../typechain-types";
 
-describe("YourContract", function () {
-  // We define a fixture to reuse the same setup in every test.
+describe("Staking_ERC20", function () {
+  async function deployContractAndSetVariables() {
+    const Staking = await ethers.getContractFactory("StakingContract");
+    const staking = await Staking.deploy(2000);
 
-  let yourContract: YourContract;
-  before(async () => {
     const [owner] = await ethers.getSigners();
-    const yourContractFactory = await ethers.getContractFactory("YourContract");
-    yourContract = (await yourContractFactory.deploy(owner.address)) as YourContract;
-    await yourContract.waitForDeployment();
+
+    console.log("Signer 1 address: ", owner.address);
+    return { staking, owner };
+  }
+
+  it("Stake", async function () {
+    const { staking, owner } = await loadFixture(deployContractAndSetVariables);
+    console.log(owner);
+
+    expect(await staking.stake(100)).to.equal("Valor esperado");
   });
 
-  describe("Deployment", function () {
-    it("Should have the right message on deploy", async function () {
-      expect(await yourContract.greeting()).to.equal("Building Unstoppable Apps!!!");
-    });
+  it("Unstake", async function () {
+    const { staking, owner } = await loadFixture(deployContractAndSetVariables);
+    console.log(owner);
 
-    it("Should allow setting a new message", async function () {
-      const newGreeting = "Learn Scaffold-ETH 2! :)";
+    expect(await staking.unstake(100)).to.equal("Valor esperado");
+  });
 
-      await yourContract.setGreeting(newGreeting);
-      expect(await yourContract.greeting()).to.equal(newGreeting);
-    });
+  it("ClaimReward", async function () {
+    const { staking, owner } = await loadFixture(deployContractAndSetVariables);
+    console.log(owner);
+
+    expect(await staking.claimReward()).to.equal("Valor esperado");
   });
 });
