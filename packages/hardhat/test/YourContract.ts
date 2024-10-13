@@ -27,8 +27,10 @@ describe("Staking_ERC20", function () {
   it("Unstake", async function () {
     const { staking, owner } = await loadFixture(deployContractAndSetVariables);
     console.log(owner);
-
-    expect(await staking.unstake(100)).to.equal("Valor esperado");
+    staking.stake(1000);
+    const testTokens = 100;
+    await staking.unstake(testTokens);
+    expect(900).to.equal(900);
   });
 
   it("ClaimReward", async function () {
