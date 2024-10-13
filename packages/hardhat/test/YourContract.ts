@@ -13,11 +13,15 @@ describe("Staking_ERC20", function () {
     return { staking, owner };
   }
 
-  it("Stake", async function () {
+  it("should stake tokens and update contract balance correctly", async function () {
     const { staking, owner } = await loadFixture(deployContractAndSetVariables);
-    console.log(owner);
-
-    expect(await staking.stake(100)).to.equal("Valor esperado");
+    const stakingTokens = 1000;
+    const balanceBefore = await staking.connect(owner).balanceOf(await staking.token());
+    await staking.connect(owner).stake(stakingTokens);
+    const balanceAfter = await staking.connect(owner).balanceOf(await staking.token());
+    expect(balanceAfter).to.equal(balanceBefore + BigInt(stakingTokens));
+    const staker = await staking.connect(owner).balances(owner.address);
+    expect(staker.stakedTokens).to.equal(stakingTokens);
   });
 
   it("Unstake", async function () {
