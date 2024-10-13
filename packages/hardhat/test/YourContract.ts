@@ -33,10 +33,19 @@ describe("Staking_ERC20", function () {
     expect(900).to.equal(900);
   });
 
-  it("ClaimReward", async function () {
+  it("Should allow users to claim rewards", async function () {
     const { staking, owner } = await loadFixture(deployContractAndSetVariables);
-    console.log(owner);
+    // Stake some tokens
+    await staking.connect(owner).stake(1000);
 
-    expect(await staking.claimReward()).to.equal("Valor esperado");
+    // Advance time by 1 day
+    await ethers.provider.send("evm_increaseTime", [86400]);
+    await ethers.provider.send("evm_mine");
+
+    const balanceBefore = await staking.balanceOf(owner.address);
+    await staking.connect(owner).claimReward();
+    const balanceAfter = await staking.balanceOf(owner.address);
+
+    expect(balanceAfter).to.be.gt(balanceBefore);
   });
 });
